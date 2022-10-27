@@ -1,68 +1,71 @@
-"use strict";
 // Create a "close" button and append it to each list item
-const myNodeList = document.getElementsByTagName("LI");
+const myNodeList: HTMLCollectionOf<Element> = document.getElementsByTagName("LI");
 for (let i = 0; i < myNodeList.length; i++) {
-    const span = document.createElement("SPAN");
-    const txt = document.createTextNode("\u00D7");
+    const span: HTMLElement = document.createElement("SPAN");
+    const txt: Text = document.createTextNode("\u00D7");
     span.className = "close";
     span.appendChild(txt);
     myNodeList[i].appendChild(span);
 }
+
 // Click on a close button to hide the current list item
-const closeElements = document.getElementsByClassName("close");
+const closeElements: HTMLCollectionOf<Element> = document.getElementsByClassName("close");
 for (let i = 0; i < closeElements.length; i++) {
-    let closeElement = closeElements[i];
+    let closeElement: Element = closeElements[i];
     closeElement.addEventListener("click", () => {
         const li = closeElement.parentElement;
         if (li) {
             li.style.display = "none";
         }
-    });
+    })
 }
+
 // Add a "checked" symbol when clicking on a list item
-const list = document.querySelector('ul');
+const list: HTMLUListElement | null = document.querySelector('ul');
 if (list) {
     list.addEventListener('click', function (ev) {
-        let target = ev.target;
+        let target: HTMLElement = <HTMLElement> ev.target;
         if (target.tagName === 'LI') {
             target.classList.toggle('checked');
         }
     }, false);
 }
+
 // Create a new list item when clicking on the "Add" button
-function newElement() {
-    const li = document.createElement("li");
-    const input = document.getElementById("myInput");
-    if (!!input) {
-        const inputValue = input.value;
+function newElement(): void {
+    const li: HTMLLIElement = document.createElement("li");
+    const input: HTMLElement | null = document.getElementById("myInput");
+    if(!!input) {
+        const inputValue: string = (<HTMLInputElement>input).value;
         const t = document.createTextNode(inputValue);
         li.appendChild(t);
         if (inputValue === '') {
             alert("You must write something!");
-        }
-        else {
+        } else {
             const myUL = document.getElementById("myUL");
-            if (myUL) {
+            if(myUL) {
                 myUL.appendChild(li);
             }
         }
         const myInput = document.getElementById("myInput");
-        if (myInput) {
-            myInput.value = "";
+        if(myInput){
+            (<HTMLInputElement>myInput).value = "";
         }
     }
+
     const span = document.createElement("SPAN");
     const txt = document.createTextNode("\u00D7");
     span.className = "close";
     span.appendChild(txt);
     li.appendChild(span);
+
     for (let i = 0; i < closeElements.length; i++) {
-        let closeElement = closeElements[i];
+        let closeElement: Element = closeElements[i];
         closeElement.addEventListener("click", () => {
             const li = closeElement.parentElement;
             if (li) {
                 li.style.display = "none";
             }
-        });
+        })
     }
 }
